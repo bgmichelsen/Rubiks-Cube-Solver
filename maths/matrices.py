@@ -22,8 +22,6 @@ class Matrix3D:
                      must be numeric and must have 9 elements
         """
 
-        self.data = None
-
         if len(args) == 9:
             # Args entered: 1, 2, 3, 4, 5, 6, 7, 8, 9
             self.data = list(args)
@@ -32,7 +30,7 @@ class Matrix3D:
             self.data = [elem for sub in args for elem in sub]
         else:
             # Args entered: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-            self.data = args[0]
+            self.__init__(*args[0])
 
         if len(self.data) != 9:
             raise ValueError(f"Matrix3D must have 9 elements, received {args}")
@@ -75,6 +73,15 @@ class Matrix3D:
 
         return a - b + c
 
+    def diag(self):
+        """
+        Get the main diagonal of the matrix
+
+        :return: The main diagonal
+        """
+
+        return self.data[0], self.data[4], self.data[8]
+
     def __add__(self, other):
         """
         Add operator
@@ -104,14 +111,14 @@ class Matrix3D:
         Multiplication operator
 
         :param other: The other component to multiply
-        :return:
+        :return: Product of matrix and other
         """
 
         if isinstance(other, Point3D):
-            return Point3D(other.dot(Point3D(row)) for row in self.rows())
+            return Point3D([other.dot(Point3D(row)) for row in self.rows()])
         elif isinstance(other, Matrix3D):
-            return Matrix3D(Point3D(row).dot(Point3D(col)) for row in self.rows \
-                            for col in self.cols())
+            return Matrix3D(Point3D(row).dot(Point3D(col)) for row in self.rows() \
+                            for col in other.cols())
         elif isinstance(other, Number):
             return Matrix3D(a*other for a in self.data)
         else:
@@ -138,12 +145,12 @@ IDENTITY_MATRIX = Matrix3D((1, 0, 0),
 CW is Clockwise and CC is Counter Clockwise
 """
 
-ROT_X_CW = Matrix3D(((1, 0, 0),
-                     (0, 0, 1),
-                     (0, -1, 0)))
-ROT_X_CC = Matrix3D(((1, 0, 0),
-                     (0, 0, -1),
-                     (0, 1, 0)))
+ROT_X_CW = Matrix3D((1, 0, 0),
+                    (0, 0, 1),
+                    (0, -1, 0))
+ROT_X_CC = Matrix3D((1, 0, 0),
+                    (0, 0, -1),
+                    (0, 1, 0))
 
 ROT_Y_CW = Matrix3D((0, 0, -1),
                     (0, 1, 0),
@@ -158,3 +165,4 @@ ROT_Z_CW = Matrix3D((0, 1, 0),
 ROT_Z_CC = Matrix3D((0, -1, 0),
                     (1, 0, 0),
                     (0, 0, 1))
+

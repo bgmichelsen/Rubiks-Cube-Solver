@@ -24,7 +24,6 @@ Directories and Files:
 - main.py (this file) : defines the entry function for the program
 
 """
-# TODO: Convert rubiks.draw to OOP
 # TODO: Create the other classes
 # TODO: Implement main program
 
