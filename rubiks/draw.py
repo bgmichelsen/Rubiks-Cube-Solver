@@ -55,7 +55,8 @@ class Drawing:
 
         :return: None
         """
-        self.context = self.__create_context__()
+
+        self.__create_context__()
         self.CONTEXT_OPEN = True
 
     def draw(self):
@@ -169,7 +170,7 @@ class Drawing:
             plt.draw()
             plt.pause(_pause)
             self.context.cla()
-            self.__update_context__()
+            self.__set_context__()
         else:
             self.CONTEXT_OPEN = False
 
@@ -195,19 +196,10 @@ class Drawing:
         """
 
         fig = plt.figure("Rubik's Cube")
-        ax = fig.gca(projection='3d')
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-        ax.set_xbound(-1, 1)
-        ax.set_ybound(-1, 1)
-        ax.set_zbound(-1, 1)
-        ax._axis3don = self.axes
-        ax.grid(self.grid)
+        self.context = fig.gca(projection='3d')
+        self.__set_context__()
 
-        return ax
-
-    def __update_context__(self):
+    def __set_context__(self):
         """"
         Updates the context of the plot
 
@@ -278,7 +270,6 @@ class Drawing:
         # We only want to color the three outside pieces of a cuboid
         full_colors = [colors[0], colors[1], colors[2], 'black', 'black', 'black']
 
-        # TODO: Swap colors based on position data
         if coords[1] > 0:
             full_colors[1], full_colors[4] = full_colors[4], full_colors[1]
         if coords[0] < 0:

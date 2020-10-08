@@ -22,10 +22,6 @@ class Point3D:
         :param z: z coord of point
         """
 
-        self.x = None
-        self.y = None
-        self.z = None
-
         if isinstance(x, (tuple, list)):
             assert len(x) == 3
 
@@ -83,10 +79,6 @@ class Point3D:
         :return: The addition of the point and another point
         """
 
-        c_x = None
-        c_y = None
-        c_z = None
-
         if isinstance(other, Point3D):
             c_x = self.x + other.x
             c_y = self.y + other.y
@@ -111,10 +103,6 @@ class Point3D:
         :return: The subtraction of the point and another point
         """
 
-        c_x = None
-        c_y = None
-        c_z = None
-
         if isinstance(other, Point3D):
             c_x = self.x - other.x
             c_y = self.y - other.y
@@ -138,10 +126,6 @@ class Point3D:
         :param other: Other point to multiply
         :return: The product of the two points
         """
-
-        c_x = None
-        c_y = None
-        c_z = None
 
         if isinstance(other, Point3D):
             c_x = self.x*other.x
@@ -179,7 +163,7 @@ class Point3D:
                 and self.y == other.y and self.z == other.z)
 
     def __ne__(self, other):
-        return self == other
+        return not self == other
 
     def __iter__(self):
         yield self.x

@@ -124,9 +124,37 @@ class Matrix3D:
                 "{}, {}, {}]".format(*self.data)
 
     def __repr__(self):
-        return "Matrix3D " + str(self)
+        return "Matrix3D" + str(self)
 
 
 # Identity matrix
-IDENTITY_MATRIX = Matrix3D([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+IDENTITY_MATRIX = Matrix3D((1, 0, 0),
+                           (0, 1, 0),
+                           (0, 0, 1))
 
+"""
+90 Degree Rotation Matrices
+
+CW is Clockwise and CC is Counter Clockwise
+"""
+
+ROT_X_CW = Matrix3D(((1, 0, 0),
+                     (0, 0, 1),
+                     (0, -1, 0)))
+ROT_X_CC = Matrix3D(((1, 0, 0),
+                     (0, 0, -1),
+                     (0, 1, 0)))
+
+ROT_Y_CW = Matrix3D((0, 0, -1),
+                    (0, 1, 0),
+                    (1, 0, 0))
+ROT_Y_CC = Matrix3D((0, 0, 1),
+                    (0, 1, 0),
+                    (-1, 0, 0))
+
+ROT_Z_CW = Matrix3D((0, 1, 0),
+                    (-1, 0, 0),
+                    (0, 0, 1))
+ROT_Z_CC = Matrix3D((0, -1, 0),
+                    (1, 0, 0),
+                    (0, 0, 1))
