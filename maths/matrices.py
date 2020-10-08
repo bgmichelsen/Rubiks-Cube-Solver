@@ -62,23 +62,6 @@ class Matrix3D:
         yield self.data[1:9:3]
         yield self.data[2:9:3]
 
-    def eigenvector(self):
-        """
-        Calculate the eigenvector of the matrix
-
-        :return:
-        """
-
-        pass
-
-    def eigenval(self):
-        """
-        Calculate the eigenvalue of the matrix
-
-        :return:
-        """
-        pass
-
     def det(self):
         """
         Find the determinant of the matrix
