@@ -4,6 +4,8 @@ uses a vector representation of the Pieces, which means rotations
 are represented by simple matrix math. The algorithm used to solve
 the cube is just the Layer-by-Layer approach.
 
+I took inspiration from [this](https://github.com/pglass/cube) project. 
+
 ## Dependencies
 
 Below are the dependencies of the project:
