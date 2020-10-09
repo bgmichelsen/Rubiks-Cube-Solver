@@ -33,7 +33,7 @@ class Point3D:
             self.y = y
             self.z = z
 
-        if all(elem is None for elem in [self.x, self.y, self.z]):
+        if any(elem is None for elem in [self.x, self.y, self.z]):
             raise ValueError(f"Point does not accept None types")
 
     def get_coords(self):
