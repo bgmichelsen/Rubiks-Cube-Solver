@@ -6,7 +6,6 @@
 Defines the Cube class and helper data.
 
 """
-# TODO: Finish Cube __str__ method
 
 # Import necessary modules
 from rubiks.piece import Piece, RubiksColors as Colors
@@ -93,24 +92,6 @@ class Cube:
         )
 
         self.pieces = self.faces + self.edges + self.corners
-
-    def _color_list(self):
-        """
-        Return the list of all the colors on the cube in the current state
-
-        :return: The list of all the colors on the cube
-        """
-
-        up = [p.colors[2] for p in self._get_face(UP)]
-        left = [p.colors[1] for p in self._get_face(LEFT)]
-        front = [p.colors[0] for p in self._get_face(FRONT)]
-        right = [p.colors[1] for p in self._get_face(RIGHT)]
-        back = [p.colors[0] for p in self._get_face(BACK)]
-        down = [p.colors[2] for p in self._get_face(DOWN)]
-
-        return (up + left[0:3] + front[0:3] + back[0:3]
-                   + left[3:6] + front[3:6] + back[3:6]
-                   + left[6:9] + front[6:9] + back[6:9] + down)
 
     def _get_face(self, axis):
         """
