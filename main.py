@@ -24,12 +24,12 @@ Directories and Files:
 - main.py (this file) : defines the entry function for the program
 
 """
-# TODO: Create the other classes
-# TODO: Implement main program
+# TODO: Create the rubiks.solver class
+# TODO: Implement solver in the main program
 
 # Import necessary internal modules
 from rubiks.draw import Drawing
-from rubiks.cube import Cube
+from rubiks.cube import Cube, FRONT, LEFT, RIGHT
 
 def main():
     """
@@ -43,12 +43,14 @@ def main():
     window = Drawing(cube, _sizes=(0.25, 0.25, 0.25))
     window.init_context()
 
-    i = 0
-    while i <= 1000 and window.context_opened():
-        window.update()
-        i += 1
+    sequence = "L L Ri U F F Di B"
+
+    for s in sequence.split():
+        cube.sequence(s)
+        window.update(_pause=0.025)
     window.keep_open()
 
 
 if __name__ == "__main__":
     main()
+

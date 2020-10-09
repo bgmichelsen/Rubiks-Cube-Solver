@@ -66,101 +66,10 @@ class Drawing:
         :return: None
         """
 
-        positions = [
-            # Bottom back edge
-            (-1, -1, -1),
-            (-1, 0, -1),
-            (-1, 1, -1),
-
-            # Bottom middle
-            (0, -1, -1),
-            (0, 0, -1),
-            (0, 1, -1),
-
-            # Bottom front edge
-            (1, -1, -1),
-            (1, 0, -1),
-            (1, 1, -1),
-
-            # Middle back
-            (-1, -1, 0),
-            (-1, 0, 0),
-            (-1, 1, 0),
-
-            # Middle middle
-            (0, -1, 0),
-            (0, 1, 0),
-
-            # Middle front
-            (1, -1, 0),
-            (1, 0, 0),
-            (1, 1, 0),
-
-            # Top back
-            (-1, -1, 1),
-            (-1, 0, 1),
-            (-1, 1, 1),
-
-            # Top middle
-            (0, -1, 1),
-            (0, 0, 1),
-            (0, 1, 1),
-
-            # Top front
-            (1, -1, 1),
-            (1, 0, 1),
-            (1, 1, 1)
-        ]
-
-        colors = [
-            # Bottom back
-            ('red', 'blue', 'white'),
-            ('red', 'black', 'white'),
-            ('red', 'green', 'white'),
-
-            # Bottom middle
-            ('red', 'blue', 'black'),
-            ('red', 'black', 'black'),
-            ('red', 'green', 'black'),
-
-            # Bottom front
-            ('red', 'blue', 'yellow'),
-            ('red', 'black', 'yellow'),
-            ('red', 'green', 'yellow'),
-
-            # Middle back
-            ('black', 'blue', 'white'),
-            ('black', 'black', 'white'),
-            ('black', 'green', 'white'),
-
-            # Middle middle
-            ('black', 'blue', 'black'),
-            ('black', 'green', 'black'),
-
-            # Middle front
-            ('black', 'blue', 'yellow'),
-            ('black', 'black', 'yellow'),
-            ('black', 'green', 'yellow'),
-
-            # Top back
-            ('orange', 'blue', 'white'),
-            ('orange', 'black', 'white'),
-            ('orange', 'green', 'white'),
-
-            # Top middle
-            ('orange', 'blue', 'black'),
-            ('orange', 'black', 'black'),
-            ('orange', 'green', 'black'),
-
-            # Top front
-            ('orange', 'blue', 'yellow'),
-            ('orange', 'black', 'yellow'),
-            ('orange', 'green', 'yellow')
-        ]
-
         # Create the voxels
-        for p, c in zip(positions, colors):
-            voxel = self.__create_voxel__(self.__create_cuboid__(p, c))
+        for p in self.cube.pieces:
+            pos = tuple(x for x in p.pos)
+            voxel = self.__create_voxel__(self.__create_cuboid__(pos, p.colors))
             self.context.add_collection3d(voxel)
 
     def update(self, _pause=0.001):
@@ -262,18 +171,21 @@ class Drawing:
         assert type(coords) is tuple and len(coords) == 3
 
         assert colors is not None
-        assert type(colors) is tuple and len(colors) == 3
+        assert isinstance(colors, (tuple, list)) and len(colors) == 3
 
         # Create the cubified position data
         vertices = self.__cubify__(coords)
 
-        # We only want to color the three outside pieces of a cuboid
-        full_colors = [colors[0], colors[1], colors[2], 'black', 'black', 'black']
+        # Rearrange coordinates to match drawing system
+        colors_re = (colors[2], colors[1], colors[0])
 
-        if coords[1] > 0:
-            full_colors[1], full_colors[4] = full_colors[4], full_colors[1]
+        # We only want to color the three outside pieces of a cuboid
+        full_colors = [colors_re[0], colors_re[1], colors_re[2], 'black', 'black', 'black']
+
         if coords[0] < 0:
             full_colors[2], full_colors[3] = full_colors[3], full_colors[2]
+        if coords[1] > 0:
+            full_colors[1], full_colors[4] = full_colors[4], full_colors[1]
         if coords[2] > 0:
             full_colors[0], full_colors[5] = full_colors[5], full_colors[0]
 
