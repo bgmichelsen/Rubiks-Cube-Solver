@@ -6,6 +6,7 @@
 Defines the Cube class and helper data.
 
 """
+# TODO: Finish Cube __str__ method
 
 # Import necessary modules
 from rubiks.piece import Piece, RubiksColors as Colors
@@ -245,14 +246,21 @@ class Cube:
     def __ne__(self, other):
         return not self == other
 
-    # def __str__(self):
-    #     return "      {} {} {}\n" \
-    #            "      {} {} {}\n" \
-    #            "      {} {} {}\n" \
-    #            "{} {} {} {} {} {} {} {} {} {} {} {}\n" \
-    #            "{} {} {} {} {} {} {} {} {} {} {} {}\n" \
-    #            "{} {} {} {} {} {} {} {} {} {} {} {}\n" \
-    #            "      {} {} {}\n" \
-    #            "      {} {} {}\n" \
-    #            "      {} {} {}\n".format(*(self._color_list())).strip()
+    def __str__(self):
+
+        template = ("         {} {} {}\n"
+                    "         {} {} {}\n"
+                    "         {} {} {}\n"
+                    "{} {} {} {} {} {} {} {} {} {} {} {}\n"
+                    "{} {} {} {} {} {} {} {} {} {} {} {}\n"
+                    "{} {} {} {} {} {} {} {} {} {} {} {}\n"
+                    "         {} {} {}\n"
+                    "         {} {} {}\n"
+                    "         {} {} {}\n")
+
+
+        full_str = template.format(*(self.face_colors(UP) + self.face_colors(LEFT) + self.face_colors(FRONT) +
+                                     self.face_colors(RIGHT) + self.face_colors(BACK) + self.face_colors(DOWN)))
+
+        return full_str
 

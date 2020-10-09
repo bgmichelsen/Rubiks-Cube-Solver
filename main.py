@@ -29,7 +29,7 @@ Directories and Files:
 
 # Import necessary internal modules
 from rubiks.draw import Drawing
-from rubiks.cube import Cube, FRONT, LEFT, RIGHT
+from rubiks.cube import Cube, VALID_NOTATION
 
 def main():
     """
@@ -43,7 +43,7 @@ def main():
     window = Drawing(cube, _sizes=(0.25, 0.25, 0.25))
     window.init_context()
 
-    sequence = "L L Ri U F F Di B"
+    sequence = "Li Fi R U F Di B U U"
 
     for s in sequence.split():
         cube.sequence(s)
